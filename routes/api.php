@@ -16,3 +16,17 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+
+Route::get("/documents/", "API\DocumentController@index");
+Route::get("/documents/{id}", "API\DocumentController@show");
+Route::post("/documents/", "API\DocumentController@store");
+Route::middleware('auth:api')->put('/documents/{id}', "API\DocumentController@update");
+Route::middleware('auth:api')->delete('/documents/{id}', "API\DocumentController@destroy");
+
+Route::fallback(function(){
+    return response()->json([
+        'message' => 'Page Not Found.'], 404);
+});
